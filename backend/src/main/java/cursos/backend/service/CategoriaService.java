@@ -22,6 +22,10 @@ public class CategoriaService {
 
     @Transactional
     public CategoriaResponse registrarCategoria(CategoriaRequest request){
+        
+        if(request.getNombreCategoria() == null || request.getNombreCategoria().trim().isEmpty()){
+            throw new RuntimeException("El nombre de la categoría no puede estar vacío");
+        }
 
         if(categoriaRepository.findByNombreCategoria(request.getNombreCategoria()).isPresent()){
             throw new RuntimeException("La categoria ya existe");
@@ -31,8 +35,11 @@ public class CategoriaService {
             .nombreCategoria(request.getNombreCategoria())
             .build();
 
-        categoriaRepository.save(categoria);
-        return new CategoriaResponse(categoria.getNombreCategoria(), "Categoria registrada correctamente");
+        Categoria categoriaSaved = categoriaRepository.save(categoria);
+        return CategoriaResponse.builder()
+            .nombreCategoria(categoriaSaved.getNombreCategoria())
+            .message("Categoria registrada correctamente")
+            .build();
     }
 
     //Listar las categorias

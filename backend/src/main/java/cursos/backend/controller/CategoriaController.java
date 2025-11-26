@@ -40,17 +40,17 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaService.listarCategoria());
     }
 
-    @GetMapping("/buscar/{id}")
+    @GetMapping("/buscar/{id_categoria}")
     public ResponseEntity<CategoriaResponse> buscarId(@PathVariable Long id_categoria){
         return ResponseEntity.ok(categoriaService.buscarId(id_categoria));
     }
 
-    @PutMapping("actualizar/{id}")
+    @PutMapping("actualizar/{id_categoria}")
     public ResponseEntity<CategoriaResponse> actualizar(@PathVariable Long id_categoria, @RequestBody CategoriaRequest request){
         return ResponseEntity.ok(categoriaService.actualizar(id_categoria, request));
     }
 
-   @DeleteMapping("/borrar/{id}")
+   @DeleteMapping("/borrar/{id_categoria}")
     public ResponseEntity<String> borrarCategoria(@PathVariable Long id_categoria) {
         categoriaService.borrarCategoria(id_categoria);
         return ResponseEntity.ok("Usuario borrado correctamente");
